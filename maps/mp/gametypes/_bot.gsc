@@ -181,7 +181,10 @@ init()
 	if ( !isdefined( game[ "botWarfare" ] ) )
 	{
 		game[ "botWarfare" ] = true;
+		game[ "botWarfareInitTime" ] = gettime();
 	}
+	
+	level.bot_inittime = gettime();
 	
 	thread fixGamemodes();
 	thread onPlayerConnect();
@@ -239,6 +242,21 @@ handleBots()
 /*
 	When a bot disconnects.
 */
+onDisconnectPlayer()
+{
+	self waittill( "disconnect" );
+	waittillframeend;
+	
+	for ( i = 0; i < level.bots.size; i++ )
+	{
+		bot = level.bots[ i ];
+		bot BotNotifyBotEvent( "connection", "disconnected", self, self.name );
+	}
+}
+
+/*
+	When a bot disconnects.
+*/
 onDisconnect()
 {
 	self waittill( "disconnect" );
@@ -252,6 +270,14 @@ onDisconnect()
 connected()
 {
 	self endon( "disconnect" );
+	
+	for ( i = 0; i < level.bots.size; i++ )
+	{
+		bot = level.bots[ i ];
+		bot BotNotifyBotEvent( "connection", "connected", self, self.name );
+	}
+	
+	self thread onDisconnectPlayer();
 	
 	if ( !self is_bot() )
 	{
