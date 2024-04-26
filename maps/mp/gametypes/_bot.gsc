@@ -193,6 +193,9 @@ init()
 	thread handleBots();
 	
 	thread doNonDediBots();
+	level thread onPlayerChat();
+
+	// todo: _bot_chat
 }
 
 /*
@@ -1262,5 +1265,23 @@ fixGamemodes()
 		}
 		
 		wait 0.05;
+	}
+}
+
+/*
+	When a player chats
+*/
+onPlayerChat()
+{
+	for ( ;; )
+	{
+		level waittill( "say", message, player, is_hidden );
+		
+		for ( i = 0; i < level.bots.size; i++ )
+		{
+			bot = level.bots[ i ];
+			
+			bot BotNotifyBotEvent( "chat", "chat", message, player, is_hidden );
+		}
 	}
 }
