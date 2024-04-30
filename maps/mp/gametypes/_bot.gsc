@@ -194,7 +194,7 @@ init()
 	
 	thread doNonDediBots();
 	level thread onPlayerChat();
-
+	
 	// todo: _bot_chat
 }
 
@@ -248,7 +248,7 @@ handleBots()
 onDisconnectPlayer()
 {
 	name = self.name;
-
+	
 	self waittill( "disconnect" );
 	waittillframeend;
 	
@@ -887,11 +887,11 @@ addBots_loop()
 	if ( fillMode == 0 || fillMode == 2 )
 	{
 		amount += players;
-	}
-	
-	if ( getdvarint( "bots_manage_fill_spec" ) )
-	{
-		amount += spec;
+		
+		if ( getdvarint( "bots_manage_fill_spec" ) )
+		{
+			amount += spec;
+		}
 	}
 	
 	if ( amount < fillAmount )

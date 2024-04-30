@@ -1260,6 +1260,12 @@ bot_killstreak_think_loop()
 		return;
 	}
 	
+	if ( maps\mp\gametypes\_hardpoints::iskillstreakweapon( curWeap ) && curWeap != "m220_tow_mp" && curWeap != "m202_flash_mp" && curWeap != "minigun_mp" )
+	{
+		self thread changeToWeapon( self.lastnonkillstreakweapon );
+		return;
+	}
+	
 	weapon = self maps\mp\gametypes\_hardpoints::gettopkillstreak();
 	
 	if ( !isdefined( weapon ) || weapon == "none" )
