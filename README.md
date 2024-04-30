@@ -87,7 +87,7 @@ This mod extends the functionality and features of Combat Training in Black Ops 
 | bots_play_aim                    | If the bots can aim.                                                                           | 1          |
 
 ## Changelog
-- v1.2.0
+- v1.2.0 (not released yet)
   - Bots can now melee lunge
   - Bots can now jumpshot and dropshot
   - Fix some script runtime errors
